@@ -1,11 +1,13 @@
 ## Using MACS to call peaks
+cd home/jby/chipseq
+mkdir peaks
 cd home/jby/chipseq/alignment
 # create shell script -- callpeak.sh
 """
 ls *merge.bam | cut -d "." -f 1 | while read id:
 do
-nohup macs2 callpeak -c Control.merge.bam -t ${id}.merge.bam -f BAM -B -g mm -n ${id}_rmdup --outdir ../callpeaks &
+nohup macs2 callpeak -c Control.merge.bam -t ${id}.merge.bam -f BAM -B -g mm -n ${id}_rmdup --outdir ../peaks &
 done
 """
-bash alignment.sh
+bash callpeak.sh
 
