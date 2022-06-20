@@ -81,4 +81,5 @@ Ring1B_2.fastq.gz
 """
 
 ## Using multiqc to check 
-multiqc ./
+cd /home/jby/chipseq/fq
+ls *.gz |xargs -n1 fastqc ./
