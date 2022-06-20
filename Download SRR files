@@ -61,3 +61,24 @@ nohup fastq-dump -A $sample -O /home/jby/chipseq/fq --gzip --split-3 $srr &
 done
 """
 bash dump.sh
+
+# obtain fq files
+"""
+Control_1.fastq.gz
+Control_2.fastq.gz
+H2Aub1_1.fastq.gz
+ H2Aub1_2.fastq.gz
+H3K36me3_1.fastq.gz
+RNAPII_S2P_1.fastq.gz
+RNAPII_S2P_2.fastq.gz
+RNAPII_S2P_3.fastq.gz
+RNAPII_S5PRepeat_1.fastq.gz
+RNAPII_S5P_2.fastq.gz
+RNAPII_S7P_1.fastq.gz
+RNAPII_S7P_2.fastq.gz
+Ring1B_1.fastq.gz
+Ring1B_2.fastq.gz
+"""
+
+## Using multiqc to check 
+multiqc ./
