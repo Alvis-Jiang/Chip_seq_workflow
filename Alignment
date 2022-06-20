@@ -1,0 +1,25 @@
+## Downmload the official reference genome 
+cd  /home/jby/chipseq/rederence
+wget -4 -q ftp://ftp.ccb.jhu.edu/pub/data/bowtie2_indexes/mm10.zip
+unzip mm10.zip
+
+## Using bowtie2 for alignment
+# create shell script-- align.sh
+"""
+cd home/jby/chipseq/clean
+ls *.gz | while read id;
+do
+file=$(basename id) 
+sample=${file%%.}
+nohup bowtie2 -p 4 -x /home/jby/chipseq/rederence/mm10/mm10 -U $id | samtools sort -O BAM -@ 4 -o -> home/jby/chipseq/alignment/${samlple}.bam & 
+done 
+"""
+## Merge bam files
+cd home/jby/chipseq/alignment
+ls *.bam | sed 's/_[0-9]_trimmed.bam//g' | sort -u | while read id;
+do 
+samtools merge $id.merge.bam ${id}_1_trimmed.bam ${id}_2_trimmed.bam ;
+done
+
+## Build index for .bam files
+ls *merge.bam | xargs -n1 samtools index 
