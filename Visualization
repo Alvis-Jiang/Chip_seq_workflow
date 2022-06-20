@@ -1,0 +1,29 @@
+## Using deeptools to transforms .bam tp .bw
+# create shell script -- bamtobw.sh
+"""
+cd  home/jby/chipseq/alignment
+mkdir bw
+ls *merge.bam |xargs -i samtools index {}
+ls *merge.bam |while read id;do
+nohup bamCoverage --normalizeUsing CPM -b $id -o bw/${id%%.}.bw &
+done
+"""
+bash bamtobw.sh
+
+## Using deeptools to do visualization 
+# download annotation from ucsc
+# shell script -- visualization.sh
+'''
+cd home/jby/chipseq/alignment/bw
+ls *.bw | while read id;
+do
+computeMatrix reference-point --referencePoint TSS -p 4 
+-b 10000 -a 10000 
+-R home/jby/chipseq/reference/mm10/ucsc.refseq.bed 
+-S /home/jmzeng/project/epi/mergeBam/${id}.bw 
+–skipZeros 
+-o matrix1_${id}_TSS.gz
+–outFileSortedRegions regions1_${id}_TSS_1K.bed
+
+plotHeatmap -m matrix1_${sample}_TSS_2K.gz  -out ${id}_Heatmap_2K.png
+plotProfile -m matrix1_${sample}_TSS_2K.gz  -out ${id}_Profile_2K.png
