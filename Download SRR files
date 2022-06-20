@@ -67,7 +67,7 @@ bash dump.sh
 Control_1.fastq.gz
 Control_2.fastq.gz
 H2Aub1_1.fastq.gz
- H2Aub1_2.fastq.gz
+H2Aub1_2.fastq.gz
 H3K36me3_1.fastq.gz
 RNAPII_S2P_1.fastq.gz
 RNAPII_S2P_2.fastq.gz
