@@ -1,0 +1,51 @@
+## Annotate peaks with hommer
+# download the reference genome mm10
+cd home/jby/chipseq
+mkdir anno
+cd anno
+# shell script -- anno.sh
+"""
+ls home/jby/chipseq/peaks/*.bed | while read id;
+do
+awk ‘{print $4"\t"$1"\t"$2"\t"$3"\t+"}’ $id > ${id}_homer_peaks.tmp
+annotatePeaks.pl  {id%%.*}.homer_peaks.tmp mm10  1>${id%%.*}.peakAnn.xls 2>${id%%.*}.annLog.txt
+done 
+"""
+bash anno.sh
+
+
+## Annote peaks with R 
+library(ChIPseeker) 
+library(TxDb.Mmusculus.UCSC.mm10.knownGene)
+library(ChIPpeakAnno)
+library(clusterProfiler)
+bedPeaksFile = 'H3K36me3_rmdup_summits.bed'
+txdb <- TxDb.Mmusculus.UCSC.mm10.knownGene
+peak <- readPeakFile(bedPeaksFile)
+keepChr = 1grepl('_',seqlevels(peak))
+seqlevels(peak, pruning.mode=“coarse”) <- seqlevels(peak)[keepChr]
+peakAnno <- annotatePeak(peak, tssRegion=c(-3000, 3000),
+TxDb=txdb, annoDb=“org.Mm.eg.db”)
+peakAnno_df <- as.data.frame(peakAnno)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
