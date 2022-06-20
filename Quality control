@@ -1,1 +1,25 @@
+## Using trim-galore to clean fq files
+cd home/jby/chipseq/fq
+ls home/jby/chipseq/fq/ *.gz | xargs -n1 trim_galore -q 25 --phred33 --length 25 -e 0.1 --stringency 4 -o ../clean
+
+# Obtained files
+"""
+Control_1_trimmed.fq.gz
+Control_2_trimmed.fq.gz
+H2Aub1_1_trimmed.fq.gz
+H2Aub1_2_trimmed.fq.gz
+H3K36me3_1_trimmed.fq.gz
+RNAPII_S2P_1_trimmed.fq.gz
+RNAPII_S2P_2_trimmed.fq.gz
+RNAPII_S2P_3_trimmed.fq.gz
+RNAPII_S5PRepeat_1_trimmed.fq.gz
+RNAPII_S5P_2_trimmed.fq.gz
+RNAPII_S7P_1_trimmed.fq.gz
+RNAPII_S7P_2_trimmed.fq.gz
+Ring1B_1_trimmed.fq.gz
+Ring1B_2_trimmed.fq.gz
+"""
+## Using fasctqc to review the quality of files
+cd ../clean
+ls *.gz | xargs fastqc ./
 
