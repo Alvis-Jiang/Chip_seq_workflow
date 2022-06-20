@@ -27,7 +27,37 @@ do
 ascp -v -k 1 -T -l 400m -i ~/miniconda3/envs/aspera/etc/asperaweb_id_dsa.openssh -P33001 era-fasp@$id
 done
 
-# Use fastq-dump to unpack SRR files 
-#--gzip: compress output using gzip
-#--split-3: dump each read (paired-sequence) into seperate files
-fastq-dump --split-3 --gzip -O ./
+## Create config file (with Excel)
+"""
+RNAPII_S5P_1 SRR391032
+RNAPII_S5P_2 SRR391033
+RNAPII_S2P_1 SRR391034
+RNAPII_S7P_1 SRR391035
+RNAPII_8WG16_1 SRR391036
+RNAPII_8WG16_2 SRR391037
+RNAPII_S2P_2 SRR391038
+RNAPII_S2P_3 SRR391039
+RNAPII_S7P_2 SRR391040
+H2Aub1_1 SRR391041
+H2Aub1_2 SRR391042
+H3K36me3_1 SRR391043
+H3K36me3_2 SRR391044
+Control_1 SRR391045
+Control_2 SRR391046
+Ring1B_1 SRR391047
+Ring1B_2 SRR391048
+Ring1B_3 SRR391049
+RNAPII_S5PRepeat_1 SRR391050
+"""
+
+## Use fastq-dump to unpack SRR files 
+# create shell file dump.sh
+"""
+cat config|while read id;
+do 
+echo id arr=$id 
+srr=$arr[1] sample=$arr[0]
+nohup fastq-dump -A $sample -O /home/jby/chipseq/fq --gzip --split-3 $srr &
+done
+"""
+bash dump.sh
