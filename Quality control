@@ -19,7 +19,7 @@ RNAPII_S7P_2_trimmed.fq.gz
 Ring1B_1_trimmed.fq.gz
 Ring1B_2_trimmed.fq.gz
 """
-## Using fasctqc to review the quality of files
+## Using fastqc to review the quality of files
 cd ../clean
 ls *.gz | xargs fastqc ./
 
