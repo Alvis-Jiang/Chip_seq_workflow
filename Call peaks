@@ -1,4 +1,14 @@
 ## Using MACS to call peaks
+# Necessary parameters of macs2
+# -c/--control: the file of control group, which is sotred in the same directory of treatment files
+# -t/--treatment: input files
+# -f/--format: set the format of input files, ususally BAM
+# -B/--bdg: If this flag is on, MACS will store the fragment pileup, control lambda, 
+  -log10pvalue and -log10qvalue scores in bedGraph files.
+# -g/--gsize: the size of provided genome, there are some given choices, including hs ,mm, ce and dm
+# -n/--name: the name of output files
+# --outdir: the directory where outputfiles stored
+
 cd home/jby/chipseq
 mkdir peaks
 cd home/jby/chipseq/alignment
@@ -6,7 +16,7 @@ cd home/jby/chipseq/alignment
 """
 ls *merge.bam | cut -d "." -f 1 | while read id:
 do
-nohup macs2 callpeak -c Control.merge.bam -t ${id}.merge.bam -f BAM -B -g mm -n ${id}_rmdup --outdir ../peaks &
+nohup macs2 callpeak -c Control.merge.bam -t ${id}.merge.bam -f BAM -B -g mm -n $id --outdir ../peaks &
 done
 """
 bash callpeak.sh
