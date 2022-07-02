@@ -51,11 +51,12 @@ RNAPII_S5PRepeat_1 SRR391050
 """
 
 ## Use fastq-dump to unpack SRR files 
-# create shell file dump.sh
+# create shell script--dump.sh
 """
 cat config|while read id;
 do 
-echo id arr=$id 
+echo id 
+arr=$id 
 srr=$arr[1] sample=$arr[0]
 nohup fastq-dump -A $sample -O /home/jby/chipseq/fq --gzip --split-3 $srr &
 done
