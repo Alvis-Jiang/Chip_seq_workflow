@@ -17,6 +17,9 @@ bash bamtobw.sh
 cd home/jby/chipseq/alignment/bw
 ls *.bw | while read id;
 do
+echo $id  
+file=$(basename id) 
+sample={file%%.}
 computeMatrix reference-point --referencePoint TSS -p 4 
 -b 10000 -a 10000 
 -R home/jby/chipseq/reference/mm10/ucsc.refseq.bed 
