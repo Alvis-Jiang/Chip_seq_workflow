@@ -24,8 +24,9 @@ txdb <- TxDb.Mmusculus.UCSC.mm10.knownGene
 peak <- readPeakFile(bedPeaksFile)
 keepChr = 1grepl('_',seqlevels(peak))
 seqlevels(peak, pruning.mode=“coarse”) <- seqlevels(peak)[keepChr]
-peakAnno <- annotatePeak(peak, tssRegion=c(-3000, 3000),
-TxDb=txdb, annoDb=“org.Mm.eg.db”)
+# we decide taht genes with a peak within the gene body, or within 2.5 kb from the TSS, were considered to be target genes
+peakAnno <- annotatePeak(peak, tssRegion=c(-2500, 2500),
+            TxDb=txdb, annoDb=“org.Mm.eg.db”)
 peakAnno_df <- as.data.frame(peakAnno)
 
 
